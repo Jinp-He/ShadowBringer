@@ -2,41 +2,39 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Rendering;
 namespace ShadowBringer
 {
     public class Walk : ActionBase
     {
-        private Vector3 destination;
 
         [SerializeField]
         public float stopDistance = 1.0f;
-        public Walk(WatsonController _player, NavMeshAgent _agent) : base(_player, _agent)
+        public Walk(WatsonController _player, Vector3 _destination) : base(_player, _destination)
         {
             name = "Walk";
         }
 
-        public NavMeshAgent Agent { get => agent; set => agent = value; }
-		public Vector3 Destination { get => destination; set => destination = value; }
 
 		override public void Enter()
         {
-            Debug.Log("Enter Walk: " + destination);
+			Debug.Log("Enter Walk: " + base.Destination);
             player.ChangeState(PlayerState.Walk);
-            agent.SetDestination(Destination);
+            player.Agent.SetDestination(Destination);
         }
 
         override public void Execute()
         {
-            if (agent.remainingDistance <= stopDistance)
+            if (player.Agent.remainingDistance <= stopDistance)
             {
-                Debug.Log("Quit Walk: " + destination);
+				Debug.Log("Quit Walk: " + base.Destination);
                 Complete();
             }
         }
 
         override protected void OnPause()
         {
-            agent.isStopped = true;
+            player.Agent.isStopped = true;
         }
 
         

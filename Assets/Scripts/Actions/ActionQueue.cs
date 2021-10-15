@@ -58,6 +58,20 @@ namespace ShadowBringer
         }
 
         public void Clear() { actionQueue.Clear(); }
-        
+
+        public Queue<Vector3> GetMovementQueue()
+        {
+            Debug.Log("Start movement queue");
+            Queue <Vector3> _queue = new Queue<Vector3>();
+            foreach (ActionBase action in actionQueue)
+            {
+                if (action.IsMove)
+                {
+                    _queue.Enqueue(action.Destination);
+                    Debug.Log(action.Destination);
+                }
+            }
+            return _queue;
+        }
     }
 }

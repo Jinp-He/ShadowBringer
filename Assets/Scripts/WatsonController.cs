@@ -20,51 +20,53 @@ namespace ShadowBringer
 
 	public class WatsonController : MonoBehaviour
 	{
-	
+
 		Camera MapCamera;
-		NavMeshAgent agent;
+		public NavMeshAgent agent;
 		GameController gameController;
-		InputController inputController;
-		Animator animator;
+		PhantomController phantomController;
 
-
-		const float DoubleClickTimer = 0.3f;
-		const float DoubleClickMagnitude = 1.0f;
-		const float StoppingDistance = 1.0f;
-
-		const float AttackTimer = 1.0f;
-
+		
 
 		public float WalkSpeed = 3.5f;
 		public float RunSpeed = 7.0f;
 		private PlayerState state;
-		private bool isActionComplete;
 		public bool isPaused;
-
 		public float AttackRange = 5f;
 
-
-		Queue<Vector3> navMeshPath; 
 		ActionQueue actionQueue;
 
+		public NavMeshAgent Agent { get => agent; set => agent = value; }
 
 		private void Awake()
 		{
-			animator = GetComponent<Animator>();
-			navMeshPath = new Queue<Vector3>();
 			gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
 			MapCamera = Camera.main;
-			agent = GetComponent<NavMeshAgent>();
+			Agent = GetComponent<NavMeshAgent>();
 			actionQueue = GetComponent<ActionQueue>();
-			isActionComplete = true;
 			isPaused = false;
 			gameController.EnterPlan += CleanQueue;
+			
+			phantomController = GetComponent<PhantomController>();
+			
 		}
 
+		/// <summary>
+		/// 如果在规划模式，则进入规划，否则按照actionQueue行动
+		/// </summary>
 		private void Update()
 		{
-			UpdatePlan();
-			UpdateActions();
+			bool _isPlan = gameController.IsPlan;
+			actionQueue.IsStop = gameController.IsPlan;
+			if (isPaused) { return; }
+			if (_isPlan)
+			{
+				UpdatePlan();
+			}
+			else
+			{
+				UpdateActions();
+			}
 		}
 
 		protected void CleanQueue()
@@ -74,73 +76,47 @@ namespace ShadowBringer
 
 		private void UpdatePlan()
 		{
-			
-			if (gameController.IsPlan)
+			if (Input.GetMouseButtonDown(1))
 			{
-				if (actionQueue.Count < 4)
+				actionQueue.Dequeue();
+				phantomController.DrawPhantom(actionQueue);
+			}
+			if (actionQueue.Count < 4)
+			{
+				if (Input.GetMouseButtonDown(0))
 				{
-					if (Input.GetMouseButtonDown(0))
+					Ray ray = MapCamera.ScreenPointToRay(Input.mousePosition);
+					RaycastHit hit;
+					if (Physics.Raycast(ray, out hit, Mathf.Infinity) && hit.transform.gameObject.tag == "Terrain")
 					{
-						Ray ray = MapCamera.ScreenPointToRay(Input.mousePosition);
-						RaycastHit hit;
-						if (Physics.Raycast(ray, out hit, Mathf.Infinity) && hit.transform.gameObject.tag == "Terrain")
-						{
-
-							Walk _action = new Walk(this, agent);
-							_action.Destination = hit.point;
-							actionQueue.Enqueue(_action);
-						}
-					}
-					if (Input.GetMouseButtonDown(1))
-					{
-
-						actionQueue.Dequeue();
-					}
-					if (Input.GetKeyDown(KeyCode.Q))
-					{
-
-						ActionBase _action = new Attack(this, agent);
+						Walk _action = new Walk(this, hit.point);
+						_action.Destination = hit.point;
 						actionQueue.Enqueue(_action);
+
+						phantomController.DrawPhantom(actionQueue);
 					}
 				}
+				
+				if (Input.GetKeyDown(KeyCode.Q))
+				{
+					ActionBase _action = new Attack(this);
+					actionQueue.Enqueue(_action);
+					phantomController.DrawPhantom(actionQueue);
+				}
 			}
-			else { return; }
 
 		}
 
 		private void UpdateActions()
 		{
+			phantomController.DestroyPhantom();
 			actionQueue.IsStop = gameController.IsPlan;
-			if (isPaused) { return; }
-			if (actionQueue.Count == 0) 
+			if (actionQueue.Count == 0)
 			{
 				ChangeState(PlayerState.Idle);
-				return; 
+				return;
 			}
 		}
-
-		private void CompleteAction()
-		{
-			Debug.Log("Complete action by completeaction()");
-			isActionComplete = true;
-		}
-		private GameObject CheckEnemy()
-		{
-			GameObject[] list  = GameObject.FindGameObjectsWithTag("Enemy");
-			foreach (GameObject enemy in list)
-			{
-				if (Vector3.Distance(this.transform.position, enemy.transform.position) <= AttackRange)
-				{
-					return enemy;
-				}
-			}
-			return null;
-		}
-		
-
-
-
-
 
 
 		public void ChangeState(PlayerState _state)
@@ -153,6 +129,6 @@ namespace ShadowBringer
 			return state;
 		}
 
-
+		
 	}
 }

@@ -8,8 +8,10 @@ namespace ShadowBringer
 {
     public class Attack : ActionBase
     {
-        public float AttackRange = 5.0f;
-		public Attack(WatsonController _player, NavMeshAgent _agent) : base(_player, _agent)
+        public float AttackRange = 1.0f;
+        public bool isAttack = false;
+        public float stopDistance = 1.0f;
+        public Attack(WatsonController _player) : base(_player)
 		{
             name = "Attack";
 		}
@@ -17,22 +19,27 @@ namespace ShadowBringer
         override public void Enter()
         {
             Debug.Log("Enter Attack");
-            if (CheckEnemy() != null)
+            GameObject _enemy = CheckEnemy();
+            if (_enemy != null)
             {
-                CheckEnemy().GetComponent<Enemy>().KnockDown();
+                _enemy.GetComponent<Enemy>().KnockDown();
+                Complete();
             }
-            player.ChangeState(PlayerState.Idle);
-            Complete();
+            else 
+            {
+                player.ChangeState(PlayerState.Idle);
+                Complete();
+            }
+            
         }
 
         override public void Execute()
         {
-            
         }
 
         override protected void OnPause()
         {
-            agent.isStopped = true;
+
         }
 
         private GameObject CheckEnemy()
