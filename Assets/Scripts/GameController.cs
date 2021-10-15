@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 /// <summary>
 /// Scene Management, Reload Level, Save.
 /// </summary>
@@ -11,6 +12,9 @@ namespace ShadowBringer
 
 		private InputController inputController;
 		private UIController UIController;
+
+		public UnityAction EnterPlan;
+		public UnityAction ExitPlan;
 
 		public bool IsPlan { get => isPlan; set => isPlan = value; }
 
@@ -34,6 +38,8 @@ namespace ShadowBringer
 		private void SetIsPlan()
 		{
 			isPlan = !isPlan;
+			if (isPlan) { EnterPlan(); }
+			else { }//ExitPlan(); 
 		}
 
 	}

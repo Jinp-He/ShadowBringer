@@ -11,6 +11,7 @@ namespace ShadowBringer
         public float AttackRange = 5.0f;
 		public Attack(WatsonController _player, NavMeshAgent _agent) : base(_player, _agent)
 		{
+            name = "Attack";
 		}
 
         override public void Enter()

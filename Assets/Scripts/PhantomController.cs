@@ -4,7 +4,10 @@ using UnityEngine;
 
 namespace ShadowBringer
 {
-    public class Enemy : MonoBehaviour
+    /// <summary>
+    /// Phantom
+    /// </summary>
+    public class PhantomController : WatsonController
     {
         // Start is called before the first frame update
         void Start()
@@ -16,12 +19,6 @@ namespace ShadowBringer
         void Update()
         {
 
-        }
-
-        public void KnockDown()
-        {
-            Debug.Log("I am dead");
-            
         }
     }
 }

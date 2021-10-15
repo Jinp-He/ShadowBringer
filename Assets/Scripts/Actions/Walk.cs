@@ -9,9 +9,10 @@ namespace ShadowBringer
         private Vector3 destination;
 
         [SerializeField]
-        public float stopDistance = 2.0f;
+        public float stopDistance = 1.0f;
         public Walk(WatsonController _player, NavMeshAgent _agent) : base(_player, _agent)
         {
+            name = "Walk";
         }
 
         public NavMeshAgent Agent { get => agent; set => agent = value; }
@@ -19,7 +20,7 @@ namespace ShadowBringer
 
 		override public void Enter()
         {
-            Debug.Log("Enter Walk");
+            Debug.Log("Enter Walk: " + destination);
             player.ChangeState(PlayerState.Walk);
             agent.SetDestination(Destination);
         }
@@ -28,6 +29,7 @@ namespace ShadowBringer
         {
             if (agent.remainingDistance <= stopDistance)
             {
+                Debug.Log("Quit Walk: " + destination);
                 Complete();
             }
         }

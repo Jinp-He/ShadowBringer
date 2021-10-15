@@ -12,30 +12,32 @@ namespace ShadowBringer
         Queue<ActionBase> actionQueue;
         GameController gameController;
         ActionBase currAction;
-        bool isPlan;
+
+        private bool isStop;
+
 
 		public int Count { get => actionQueue.Count; }
+		public bool IsStop { get => isStop; set => isStop = value; }
 
 		private void Awake()
 		{
             actionQueue = new Queue<ActionBase>();
-            gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
+
         }
 
         public void Enqueue(ActionBase _action)
         {
             actionQueue.Enqueue(_action);
+           
         }
 
         public void Update()
         {
-            isPlan = gameController.IsPlan;
-            if (IsEmpty() || isPlan) { return; }
+            if (IsEmpty() || isStop) { return; }
             if (currAction == null || currAction.IsComplete)
             {
                 currAction = actionQueue.Peek();
                 currAction.Enter();
-                currAction.Execute();  
                 actionQueue.Dequeue(); 
             }
             else
@@ -44,11 +46,18 @@ namespace ShadowBringer
             }
         }
 
+        public ActionBase Dequeue()
+        {
+            if (!IsEmpty()) { return actionQueue.Dequeue(); }
+            else return null;
+        }
+
         public bool IsEmpty()
         {
             return actionQueue.Count == 0;
         }
 
+        public void Clear() { actionQueue.Clear(); }
         
     }
 }

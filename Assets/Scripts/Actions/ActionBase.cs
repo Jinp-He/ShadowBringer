@@ -11,6 +11,7 @@ namespace ShadowBringer
         //TODO change the controller to a more universal one
         protected WatsonController player;
         protected NavMeshAgent agent;
+        public string name;
 
         public bool IsComplete { get => isComplete; set => isComplete = value; }
 

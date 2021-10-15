@@ -18,18 +18,6 @@ namespace ShadowBringer
 		Attack = 4,
 	}
 
-	public struct Action
-	{
-		public PlayerState state;
-		public Vector3 pos;
-		public Action(PlayerState _state, Vector3 _pos) 
-		{
-			pos = _pos;
-			state = _state;
-		}
-		public Action(PlayerState _state) { state = _state; pos = Vector3.zero; }
-
-	}
 	public class WatsonController : MonoBehaviour
 	{
 	
@@ -67,18 +55,21 @@ namespace ShadowBringer
 			gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
 			MapCamera = Camera.main;
 			agent = GetComponent<NavMeshAgent>();
-			inputController = gameController.GetComponent<InputController>();
 			actionQueue = GetComponent<ActionQueue>();
 			isActionComplete = true;
 			isPaused = false;
-			//inputController.OnPlan += CleanPath;
+			gameController.EnterPlan += CleanQueue;
 		}
 
 		private void Update()
 		{
 			UpdatePlan();
 			UpdateActions();
-			//UpdateMovement();
+		}
+
+		protected void CleanQueue()
+		{
+			actionQueue.Clear();
 		}
 
 		private void UpdatePlan()
@@ -94,15 +85,20 @@ namespace ShadowBringer
 						RaycastHit hit;
 						if (Physics.Raycast(ray, out hit, Mathf.Infinity) && hit.transform.gameObject.tag == "Terrain")
 						{
-							Debug.Log("Enqueue Walk");
+
 							Walk _action = new Walk(this, agent);
 							_action.Destination = hit.point;
 							actionQueue.Enqueue(_action);
 						}
 					}
+					if (Input.GetMouseButtonDown(1))
+					{
+
+						actionQueue.Dequeue();
+					}
 					if (Input.GetKeyDown(KeyCode.Q))
 					{
-						Debug.Log("Enqueue Attack");
+
 						ActionBase _action = new Attack(this, agent);
 						actionQueue.Enqueue(_action);
 					}
@@ -114,7 +110,8 @@ namespace ShadowBringer
 
 		private void UpdateActions()
 		{
-			if (isPaused || gameController.IsPlan) { return; }
+			actionQueue.IsStop = gameController.IsPlan;
+			if (isPaused) { return; }
 			if (actionQueue.Count == 0) 
 			{
 				ChangeState(PlayerState.Idle);
