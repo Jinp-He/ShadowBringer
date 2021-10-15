@@ -1,0 +1,217 @@
+fileFormatVersion: 2
+guid: 191b62e88edb0ef44bdd55d678c2fc35
+timeCreated: 1488433812
+licenseType: Store
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: BackFoot_L
+    100002: BackFoot_R
+    100004: BackLowLeg_L
+    100006: BackLowLeg_R
+    100008: BackReverseFoot_L
+    100010: BackReverseFoot_R
+    100012: BackTarget_L
+    100014: BackTarget_R
+    100016: BackUpLeg_L
+    100018: BackUpLeg_R
+    100020: dog_rig
+    100022: FrontFoot_L
+    100024: FrontFoot_R
+    100026: FrontLowLeg_L
+    100028: FrontLowLeg_R
+    100030: FrontReverseFoot_L
+    100032: FrontReverseFoot_R
+    100034: FrontTarget_L
+    100036: FrontTarget_R
+    100038: FrontUpLeg_L
+    100040: FrontUpLeg_R
+    100042: gun_L
+    100044: gun_R
+    100046: gunTarget_L
+    100048: gunTarget_R
+    100050: ik_root
+    100052: root
+    100054: spine
+    100056: //RootNode
+    400000: BackFoot_L
+    400002: BackFoot_R
+    400004: BackLowLeg_L
+    400006: BackLowLeg_R
+    400008: BackReverseFoot_L
+    400010: BackReverseFoot_R
+    400012: BackTarget_L
+    400014: BackTarget_R
+    400016: BackUpLeg_L
+    400018: BackUpLeg_R
+    400020: dog_rig
+    400022: FrontFoot_L
+    400024: FrontFoot_R
+    400026: FrontLowLeg_L
+    400028: FrontLowLeg_R
+    400030: FrontReverseFoot_L
+    400032: FrontReverseFoot_R
+    400034: FrontTarget_L
+    400036: FrontTarget_R
+    400038: FrontUpLeg_L
+    400040: FrontUpLeg_R
+    400042: gun_L
+    400044: gun_R
+    400046: gunTarget_L
+    400048: gunTarget_R
+    400050: ik_root
+    400052: root
+    400054: spine
+    400056: //RootNode
+    7400000: turn_right
+    9500000: //RootNode
+  materials:
+    importMaterials: 0
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: turn_right
+      takeName: turn_right
+      firstFrame: 0
+      lastFrame: 24
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: dog_rig
+        weight: 1
+      - path: dog_rig/ik_root
+        weight: 1
+      - path: dog_rig/ik_root/BackReverseFoot_L
+        weight: 1
+      - path: dog_rig/ik_root/BackReverseFoot_L/BackTarget_L
+        weight: 1
+      - path: dog_rig/ik_root/BackReverseFoot_R
+        weight: 1
+      - path: dog_rig/ik_root/BackReverseFoot_R/BackTarget_R
+        weight: 1
+      - path: dog_rig/ik_root/FrontReverseFoot_L
+        weight: 1
+      - path: dog_rig/ik_root/FrontReverseFoot_L/FrontTarget_L
+        weight: 1
+      - path: dog_rig/ik_root/FrontReverseFoot_R
+        weight: 1
+      - path: dog_rig/ik_root/FrontReverseFoot_R/FrontTarget_R
+        weight: 1
+      - path: dog_rig/root
+        weight: 1
+      - path: dog_rig/root/gunTarget_L
+        weight: 1
+      - path: dog_rig/root/gunTarget_R
+        weight: 1
+      - path: dog_rig/root/spine
+        weight: 1
+      - path: dog_rig/root/spine/BackUpLeg_L
+        weight: 1
+      - path: dog_rig/root/spine/BackUpLeg_L/BackLowLeg_L
+        weight: 1
+      - path: dog_rig/root/spine/BackUpLeg_L/BackLowLeg_L/BackFoot_L
+        weight: 1
+      - path: dog_rig/root/spine/BackUpLeg_R
+        weight: 1
+      - path: dog_rig/root/spine/BackUpLeg_R/BackLowLeg_R
+        weight: 1
+      - path: dog_rig/root/spine/BackUpLeg_R/BackLowLeg_R/BackFoot_R
+        weight: 1
+      - path: dog_rig/root/spine/FrontUpLeg_L
+        weight: 1
+      - path: dog_rig/root/spine/FrontUpLeg_L/FrontLowLeg_L
+        weight: 1
+      - path: dog_rig/root/spine/FrontUpLeg_L/FrontLowLeg_L/FrontFoot_L
+        weight: 1
+      - path: dog_rig/root/spine/FrontUpLeg_R
+        weight: 1
+      - path: dog_rig/root/spine/FrontUpLeg_R/FrontLowLeg_R
+        weight: 1
+      - path: dog_rig/root/spine/FrontUpLeg_R/FrontLowLeg_R/FrontFoot_R
+        weight: 1
+      - path: dog_rig/root/spine/gun_L
+        weight: 1
+      - path: dog_rig/root/spine/gun_R
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: root
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
