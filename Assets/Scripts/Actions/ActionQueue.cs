@@ -35,7 +35,7 @@ namespace ShadowBringer
             {
                 currAction = actionQueue.Peek();
                 currAction.Enter();
-                currAction.Execute();
+                currAction.Execute();  
                 actionQueue.Dequeue(); 
             }
             else
