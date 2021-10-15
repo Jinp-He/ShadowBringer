@@ -10,28 +10,33 @@ namespace ShadowBringer
     public class ActionQueue : MonoBehaviour
     {
         Queue<ActionBase> actionQueue;
+        GameController gameController;
         ActionBase currAction;
+        bool isPlan;
 
 		public int Count { get => actionQueue.Count; }
 
-		public ActionQueue() 
-        { 
+		private void Awake()
+		{
             actionQueue = new Queue<ActionBase>();
+            gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
         }
+
         public void Enqueue(ActionBase _action)
         {
             actionQueue.Enqueue(_action);
         }
 
-        public void KeepUpdate()
+        public void Update()
         {
-            if (IsEmpty()) { return; }
+            isPlan = gameController.IsPlan;
+            if (IsEmpty() || isPlan) { return; }
             if (currAction == null || currAction.IsComplete)
             {
-                actionQueue.Dequeue();
                 currAction = actionQueue.Peek();
                 currAction.Enter();
                 currAction.Execute();
+                actionQueue.Dequeue(); 
             }
             else
             {

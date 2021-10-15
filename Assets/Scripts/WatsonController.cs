@@ -68,7 +68,7 @@ namespace ShadowBringer
 			MapCamera = Camera.main;
 			agent = GetComponent<NavMeshAgent>();
 			inputController = gameController.GetComponent<InputController>();
-			actionQueue = new ActionQueue();
+			actionQueue = GetComponent<ActionQueue>();
 			isActionComplete = true;
 			isPaused = false;
 			//inputController.OnPlan += CleanPath;
@@ -120,7 +120,6 @@ namespace ShadowBringer
 				ChangeState(PlayerState.Idle);
 				return; 
 			}
-			actionQueue.KeepUpdate();
 		}
 
 		private void CompleteAction()
