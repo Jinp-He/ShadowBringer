@@ -18,7 +18,7 @@ namespace ShadowBringer
 
 		override public void Enter()
         {
-			Debug.Log("Enter Walk: " + base.Destination);
+			//Debug.Log("Enter Walk: " + base.Destination);
             player.ChangeState(PlayerState.Walk);
             player.Agent.SetDestination(Destination);
         }
@@ -27,13 +27,14 @@ namespace ShadowBringer
         {
             if (player.Agent.remainingDistance <= stopDistance)
             {
-				Debug.Log("Quit Walk: " + base.Destination);
+				//Debug.Log("Quit Walk: " + base.Destination);
                 Complete();
             }
         }
 
         override protected void OnPause()
         {
+            //Debug.Log("Is stopped");
             player.Agent.isStopped = true;
         }
 

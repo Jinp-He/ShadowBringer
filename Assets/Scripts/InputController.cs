@@ -26,14 +26,9 @@ namespace ShadowBringer
 		{
 			if (Input.GetKeyDown(PlanKey))
 			{
-				//Debug.Log("Plankey pressed");
-				OnPlan();
+				gameController.TogglePlan();
 			}
 
-			if (Input.GetMouseButtonDown(0))
-			{
-
-			}
 		}
 	}
 }

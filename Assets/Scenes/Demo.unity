@@ -506,20 +506,6 @@ LineRenderer:
     generateLightingData: 0
   m_UseWorldSpace: 1
   m_Loop: 0
---- !u!114 &377030974
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 377030966}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a06a21302ef5bc428068a7e01d4ec47, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  watsonPhantomPrefab: {fileID: 3825058524074953218, guid: 4bc6c3328378f8d4ba53f197b653a0a4, type: 3}
-  stoppedDistance: 0
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -1161,5 +1147,17 @@ PrefabInstance:
       propertyPath: RunSpeed
       value: 15
       objectReference: {fileID: 0}
+    - target: {fileID: 4627813688663679068, guid: e12e48eaf95f2df4aa5d9d029482e0d9, type: 3}
+      propertyPath: phantomShader
+      value: 
+      objectReference: {fileID: 4800000, guid: 72d02a391ea40104e8bfd8b63b73e8e2, type: 3}
+    - target: {fileID: 4627813688663679068, guid: e12e48eaf95f2df4aa5d9d029482e0d9, type: 3}
+      propertyPath: phantomMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 53667683bcde11b49ab2299e76b0ddd9, type: 2}
+    - target: {fileID: 4627813688663679068, guid: e12e48eaf95f2df4aa5d9d029482e0d9, type: 3}
+      propertyPath: originalMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 82b6590f685147641983e066954f74c7, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e12e48eaf95f2df4aa5d9d029482e0d9, type: 3}

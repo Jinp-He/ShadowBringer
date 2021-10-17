@@ -18,7 +18,6 @@ namespace ShadowBringer
 
         override public void Enter()
         {
-            Debug.Log("Enter Attack");
             GameObject _enemy = CheckEnemy();
             if (_enemy != null)
             {

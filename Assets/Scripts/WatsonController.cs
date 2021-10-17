@@ -24,17 +24,25 @@ namespace ShadowBringer
 		Camera MapCamera;
 		public NavMeshAgent agent;
 		GameController gameController;
-		PhantomController phantomController;
 
-		
+		LineRenderer lineRenderer;
+
+		private Vector3 prevPosition;
+
+		public Material phantomMaterial;
+		public Material originalMaterial;
+
+
 
 		public float WalkSpeed = 3.5f;
 		public float RunSpeed = 7.0f;
 		private PlayerState state;
 		public bool isPaused;
 		public float AttackRange = 5f;
+		public Renderer watsonRenderer;
 
 		ActionQueue actionQueue;
+		ActionQueue phantomQueue;
 
 		public NavMeshAgent Agent { get => agent; set => agent = value; }
 
@@ -42,13 +50,48 @@ namespace ShadowBringer
 		{
 			gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
 			MapCamera = Camera.main;
+			lineRenderer = GetComponent<LineRenderer>();
+			lineRenderer.positionCount = 1;
+			lineRenderer.SetPosition(0, transform.position);
+			lineRenderer.enabled = false;
+			
 			Agent = GetComponent<NavMeshAgent>();
-			actionQueue = GetComponent<ActionQueue>();
+			actionQueue = gameObject.AddComponent<ActionQueue>();
+			actionQueue.myName = "actionQueue";
+			phantomQueue = gameObject.AddComponent<ActionQueue>();
+			phantomQueue.myName = "phantomQueue";
 			isPaused = false;
-			gameController.EnterPlan += CleanQueue;
-			
-			phantomController = GetComponent<PhantomController>();
-			
+			watsonRenderer = GetComponentInChildren<SkinnedMeshRenderer>();
+			gameController.EnterPlan += EnterPlan;
+			gameController.ExitPlan += ExitPlan;
+
+			actionQueue.isDebug = true;
+		}
+
+		private void EnterPlan()
+		{
+			lineRenderer.enabled = true;
+			actionQueue.Clear();
+			watsonRenderer.material = phantomMaterial;
+			ChangeState(PlayerState.Idle);
+			prevPosition = transform.position;
+			phantomQueue.IsStop = false;
+			actionQueue.IsStop = true;
+			agent.ResetPath();
+			Debug.Log("Entering Plan mode");
+		}
+
+		private void ExitPlan()
+		{
+			lineRenderer.enabled = false;
+			phantomQueue.Clear();
+			watsonRenderer.material = originalMaterial;
+			ChangeState(PlayerState.Idle);
+			phantomQueue.IsStop = true;
+			actionQueue.IsStop = false;
+			agent.ResetPath();
+			transform.position = prevPosition;
+			Debug.Log("Exiting Plan mode");
 		}
 
 		/// <summary>
@@ -56,10 +99,8 @@ namespace ShadowBringer
 		/// </summary>
 		private void Update()
 		{
-			bool _isPlan = gameController.IsPlan;
-			actionQueue.IsStop = gameController.IsPlan;
 			if (isPaused) { return; }
-			if (_isPlan)
+			if (gameController.IsPlan)
 			{
 				UpdatePlan();
 			}
@@ -69,17 +110,13 @@ namespace ShadowBringer
 			}
 		}
 
-		protected void CleanQueue()
-		{
-			actionQueue.Clear();
-		}
-
 		private void UpdatePlan()
 		{
+			if (phantomQueue.IsEmpty()) { ChangeState(PlayerState.Idle); }
 			if (Input.GetMouseButtonDown(1))
 			{
 				actionQueue.Dequeue();
-				phantomController.DrawPhantom(actionQueue);
+				phantomQueue.Dequeue();
 			}
 			if (actionQueue.Count < 4)
 			{
@@ -90,18 +127,19 @@ namespace ShadowBringer
 					if (Physics.Raycast(ray, out hit, Mathf.Infinity) && hit.transform.gameObject.tag == "Terrain")
 					{
 						Walk _action = new Walk(this, hit.point);
-						_action.Destination = hit.point;
 						actionQueue.Enqueue(_action);
-
-						phantomController.DrawPhantom(actionQueue);
+						_action = new Walk(this, hit.point);
+						phantomQueue.Enqueue(_action);
+						DrawDottedPath();
 					}
+					
 				}
-				
 				if (Input.GetKeyDown(KeyCode.Q))
 				{
 					ActionBase _action = new Attack(this);
 					actionQueue.Enqueue(_action);
-					phantomController.DrawPhantom(actionQueue);
+					_action = new Attack(this);
+					phantomQueue.Enqueue(_action);
 				}
 			}
 
@@ -109,12 +147,10 @@ namespace ShadowBringer
 
 		private void UpdateActions()
 		{
-			phantomController.DestroyPhantom();
-			actionQueue.IsStop = gameController.IsPlan;
+			
 			if (actionQueue.Count == 0)
 			{
 				ChangeState(PlayerState.Idle);
-				return;
 			}
 		}
 
@@ -129,6 +165,16 @@ namespace ShadowBringer
 			return state;
 		}
 
-		
+		private void DrawDottedPath()
+		{
+			int _count = lineRenderer.positionCount;
+			lineRenderer.positionCount += agent.path.corners.Length + 1;
+			for (int i = _count; i < lineRenderer.positionCount-1; i++)
+			{
+				Vector3 vec = agent.path.corners[i - _count];
+				lineRenderer.SetPosition(i, vec);
+			}
+			lineRenderer.SetPosition(lineRenderer.positionCount - 1, agent.destination);
+		}
 	}
 }

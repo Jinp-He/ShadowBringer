@@ -9,11 +9,14 @@ namespace ShadowBringer
     /// </summary>
     public class ActionQueue : MonoBehaviour
     {
-        Queue<ActionBase> actionQueue;
+        public Queue<ActionBase> actionQueue;
         GameController gameController;
         ActionBase currAction;
+        public string myName;
 
         private bool isStop;
+
+        public bool isDebug;
 
 
 		public int Count { get => actionQueue.Count; }
@@ -22,28 +25,38 @@ namespace ShadowBringer
 		private void Awake()
 		{
             actionQueue = new Queue<ActionBase>();
-
+            isDebug = false;
         }
 
         public void Enqueue(ActionBase _action)
         {
             actionQueue.Enqueue(_action);
-           
+
         }
 
         public void Update()
         {
-            if (IsEmpty() || isStop) { return; }
-            if (currAction == null || currAction.IsComplete)
+            if (isStop) { return; }
+            if (IsEmpty())
+            { return; }
+            if (currAction == null)
             {
                 currAction = actionQueue.Peek();
                 currAction.Enter();
-                actionQueue.Dequeue(); 
+            }
+            else if (currAction.IsComplete)
+            {
+                actionQueue.Dequeue();
+                if (actionQueue.Count == 0) { currAction = null; return; }
+                currAction = actionQueue.Peek();
+                currAction.Enter();
             }
             else
             {
+                
                 currAction.Execute();
             }
+
         }
 
         public ActionBase Dequeue()
@@ -61,14 +74,12 @@ namespace ShadowBringer
 
         public Queue<Vector3> GetMovementQueue()
         {
-            Debug.Log("Start movement queue");
             Queue <Vector3> _queue = new Queue<Vector3>();
             foreach (ActionBase action in actionQueue)
             {
                 if (action.IsMove)
                 {
                     _queue.Enqueue(action.Destination);
-                    Debug.Log(action.Destination);
                 }
             }
             return _queue;

@@ -24,9 +24,6 @@ namespace ShadowBringer
 			inputController = GetComponent<InputController>();
 			UIController = GetComponent<UIController>();
 			IsPlan = false;
-
-
-			inputController.OnPlan += SetIsPlan;
 		}
 
 		// Update is called once per frame
@@ -35,11 +32,11 @@ namespace ShadowBringer
 
 		}
 
-		private void SetIsPlan()
+		public void TogglePlan()
 		{
 			isPlan = !isPlan;
 			if (isPlan) { EnterPlan(); }
-			else { }//ExitPlan(); 
+			else { ExitPlan(); }
 		}
 
 	}

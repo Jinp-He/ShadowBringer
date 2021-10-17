@@ -5,8 +5,9 @@ Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_Name: Hologram 5
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Line_mat
   m_Shader: {fileID: 4800000, guid: 72d02a391ea40104e8bfd8b63b73e8e2, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -75,9 +76,10 @@ Material:
     - _Glossiness: 0.5
     - _GlossyReflections: 1
     - _HoloCrowdness: 2
-    - _HoloDistance: 0.502
+    - _HoloDistance: 0.39
     - _HoloGap: 0.23
-    - _HoloValue: 0.91
+    - _HoloSpeed: 0.42
+    - _HoloValue: 0.76
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
@@ -89,11 +91,12 @@ Material:
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
-    - _Color: {r: 0.29236382, g: 0.342041, b: 0.8490566, a: 1}
+    - _Color: {r: 0.3490566, g: 0.3490566, b: 0.3490566, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _GlitchDirection: {r: 1, g: 1, b: 1, a: 0}
+    - _GlitchDirection: {r: 0, g: 0, b: 0, a: 0}
     - _GlitchValue: {r: 0, g: 0, b: 0, a: 0}
-    - _HoloColor: {r: 0, g: 0.13834524, b: 1, a: 0.105882354}
+    - _HoloColor: {r: 0.3018868, g: 0.3018868, b: 0.3018868, a: 0.64705884}
     - _HoloDir: {r: 0, g: 1, b: 0, a: 1}
-    - _HoloDirection: {r: 1, g: -1, b: 0, a: 0}
+    - _HoloDirection: {r: 1, g: 0, b: 0, a: 0}
     - _RimColor: {r: 0.5477066, g: 0, b: 1, a: 1}
+  m_BuildTextureStacks: []

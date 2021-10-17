@@ -58,6 +58,7 @@ namespace ShadowBringer
 		public void DestroyPhantom()
 		{
 			if (!isPhantom) { return; }
+			isPhantom = false;
 			phantom.gameObject.SetActive(false);
 		}
 
