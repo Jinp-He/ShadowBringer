@@ -8,11 +8,11 @@ namespace ShadowBringer
 		private InputController inputController;
 		private GameController gameController;
 		private bool isPlan;
-		TextMeshProUGUI planText;
+		public TextMeshProUGUI planText;
 		// Start is called before the first frame update
 		void Awake()
 		{
-			canvas = GameObject.FindGameObjectWithTag("Canvas").GetComponent<Canvas>();
+			canvas = GameObject.Find("StoppingCanvas").GetComponent<Canvas>();
 			inputController = GetComponent<InputController>();
 			gameController = GetComponent<GameController>();
 			planText = canvas.GetComponentInChildren<TextMeshProUGUI>();
