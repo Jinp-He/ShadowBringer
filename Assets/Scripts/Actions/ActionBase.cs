@@ -16,6 +16,7 @@ namespace ShadowBringer
         protected WatsonController player;
         public string name;
 		private Vector3 destination;
+        private GameController gameController;
 
 
 		public bool IsComplete { get => isComplete; set => isComplete = value; }
@@ -28,6 +29,7 @@ namespace ShadowBringer
             Destination = _destination;
             IsMove = true;
             IsComplete = false;
+            gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
         }
 
         public ActionBase(WatsonController _player)
@@ -44,7 +46,7 @@ namespace ShadowBringer
         }
         virtual public void Execute()
         {
-
+            if (gameController.IsPaused) { return; }
         }
         virtual protected void OnPause()
         {

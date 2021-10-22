@@ -83,6 +83,7 @@ namespace ShadowBringer
 
 		private void ExitPlan()
 		{
+			lineRenderer.positionCount = 0;
 			lineRenderer.enabled = false;
 			phantomQueue.Clear();
 			watsonRenderer.material = originalMaterial;
@@ -99,7 +100,7 @@ namespace ShadowBringer
 		/// </summary>
 		private void Update()
 		{
-			if (isPaused) { return; }
+			if (gameController.IsPaused) { return; }
 			if (gameController.IsPlan)
 			{
 				UpdatePlan();

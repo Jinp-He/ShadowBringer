@@ -24,6 +24,8 @@ namespace ShadowBringer
 		// Update is called once per frame
 		void Update()
 		{
+			if(gameController.IsPaused)
+			{ return; }
 			if (Input.GetKeyDown(PlanKey))
 			{
 				gameController.TogglePlan();

@@ -9,6 +9,7 @@ namespace ShadowBringer
 	public class GameController : MonoBehaviour
 	{
 		private bool isPlan;
+		private bool isPaused;
 
 		private InputController inputController;
 		private UIController UIController;
@@ -17,6 +18,7 @@ namespace ShadowBringer
 		public UnityAction ExitPlan;
 
 		public bool IsPlan { get => isPlan; set => isPlan = value; }
+		public bool IsPaused { get => isPaused; set => isPaused = value; }
 
 		// Start is called before the first frame update
 		private void Awake()
@@ -24,6 +26,7 @@ namespace ShadowBringer
 			inputController = GetComponent<InputController>();
 			UIController = GetComponent<UIController>();
 			IsPlan = false;
+			isPaused = true;
 		}
 
 		// Update is called once per frame
@@ -37,6 +40,11 @@ namespace ShadowBringer
 			isPlan = !isPlan;
 			if (isPlan) { EnterPlan(); }
 			else { ExitPlan(); }
+		}
+
+		public void ToggleStop()
+		{
+			isPaused = !isPaused;
 		}
 
 	}

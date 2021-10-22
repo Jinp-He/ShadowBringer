@@ -24,18 +24,21 @@ namespace ShadowBringer
 
 		private void Awake()
 		{
+            gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
             actionQueue = new Queue<ActionBase>();
             isDebug = false;
         }
 
         public void Enqueue(ActionBase _action)
         {
+            Debug.Log("ENqueue with " + _action.name);
             actionQueue.Enqueue(_action);
 
         }
 
         public void Update()
         {
+            if (gameController.IsPaused) { return; }
             if (isStop) { return; }
             if (IsEmpty())
             { return; }
@@ -46,6 +49,7 @@ namespace ShadowBringer
             }
             else if (currAction.IsComplete)
             {
+                Debug.Log("Dequeue with " + currAction.name);
                 actionQueue.Dequeue();
                 if (actionQueue.Count == 0) { currAction = null; return; }
                 currAction = actionQueue.Peek();
