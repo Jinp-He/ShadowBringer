@@ -10,6 +10,7 @@ namespace ShadowBringer
 
 
 		public KeyCode PlanKey = KeyCode.Space;
+		public KeyCode ModeKey = KeyCode.Tab;
 		public KeyCode PauseKey = KeyCode.Escape;
 
 		public UnityAction OnPlan;
@@ -29,6 +30,11 @@ namespace ShadowBringer
 			if (Input.GetKeyDown(PlanKey))
 			{
 				gameController.TogglePlan();
+			}
+
+			if (Input.GetKeyDown(ModeKey))
+			{
+				gameController.ToggleMode();
 			}
 
 		}

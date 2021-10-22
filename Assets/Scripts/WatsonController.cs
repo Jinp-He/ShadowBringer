@@ -18,52 +18,32 @@ namespace ShadowBringer
 		Attack = 4,
 	}
 
-	public class WatsonController : MonoBehaviour
+	public class WatsonController : PlayerControllerBase
 	{
-
-		Camera MapCamera;
-		public NavMeshAgent agent;
-		GameController gameController;
-
 		LineRenderer lineRenderer;
 
 		private Vector3 prevPosition;
-
-		public Material phantomMaterial;
-		public Material originalMaterial;
-
-
-
-		public float WalkSpeed = 3.5f;
-		public float RunSpeed = 7.0f;
-		private PlayerState state;
-		public bool isPaused;
-		public float AttackRange = 5f;
-		public Renderer watsonRenderer;
-
-		ActionQueue actionQueue;
 		ActionQueue phantomQueue;
 
-		public NavMeshAgent Agent { get => agent; set => agent = value; }
-
-		private void Awake()
+		new private void Awake()
 		{
-			gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
-			MapCamera = Camera.main;
+			base.Awake();
 			lineRenderer = GetComponent<LineRenderer>();
 			lineRenderer.positionCount = 1;
 			lineRenderer.SetPosition(0, transform.position);
 			lineRenderer.enabled = false;
-			
-			Agent = GetComponent<NavMeshAgent>();
+
 			actionQueue = gameObject.AddComponent<ActionQueue>();
 			actionQueue.myName = "actionQueue";
 			phantomQueue = gameObject.AddComponent<ActionQueue>();
 			phantomQueue.myName = "phantomQueue";
 			isPaused = false;
+
 			watsonRenderer = GetComponentInChildren<SkinnedMeshRenderer>();
 			gameController.EnterPlan += EnterPlan;
 			gameController.ExitPlan += ExitPlan;
+			gameController.EnterWatsonMode += EnterWatsonMode;
+			gameController.EnterEmilyMode += EnterEmilyMode;
 
 			actionQueue.isDebug = true;
 		}
@@ -101,6 +81,7 @@ namespace ShadowBringer
 		private void Update()
 		{
 			if (gameController.IsPaused) { return; }
+			if ( gameController.IsEmilyMode) { return; }
 			if (gameController.IsPlan)
 			{
 				UpdatePlan();
@@ -155,17 +136,6 @@ namespace ShadowBringer
 			}
 		}
 
-
-		public void ChangeState(PlayerState _state)
-		{
-			state = _state;
-		}
-
-		public PlayerState GetState()
-		{
-			return state;
-		}
-
 		private void DrawDottedPath()
 		{
 			int _count = lineRenderer.positionCount;
@@ -177,5 +147,18 @@ namespace ShadowBringer
 			}
 			lineRenderer.SetPosition(lineRenderer.positionCount - 1, agent.destination);
 		}
+
+		public void EnterWatsonMode()
+		{
+			playerIndicator.SetActive(true);
+		}
+
+		public void EnterEmilyMode()
+		{
+			playerIndicator.SetActive(false);
+		}
 	}
+
+	
+
 }
