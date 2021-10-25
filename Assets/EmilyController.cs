@@ -19,6 +19,7 @@ namespace ShadowBringer
         {
             if (gameController.IsPaused) { return; }
             if (!gameController.IsEmilyMode) { return; }
+            if (gameController.IsPlan) { return; }
             UpdateMove();
         }
 
