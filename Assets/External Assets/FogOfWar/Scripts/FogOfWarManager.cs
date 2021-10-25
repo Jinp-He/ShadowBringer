@@ -34,7 +34,7 @@ public class FogOfWarManager : MonoBehaviour
     float m_FogUpdateInterval = 0.02f;
     [SerializeField]
     [Range(1,10)]
-    float m_FogAppearSpeed = 3f;
+    float m_FogAppearSpeed = 100f;
     [SerializeField]
     [Tooltip("Should the vision dissapear when no vision components are in range, or should the discovered parts of the map stay visible")]
     bool m_VisionDissapear=false;
