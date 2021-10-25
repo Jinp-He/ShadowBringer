@@ -32,6 +32,8 @@ namespace ShadowBringer
 		// Start is called before the first frame update
 		private void Awake()
 		{
+			
+
 			inputController = GetComponent<InputController>();
 			UIController = GetComponent<UIController>();
 			IsPlan = false;

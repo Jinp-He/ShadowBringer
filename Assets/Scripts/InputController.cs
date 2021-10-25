@@ -15,10 +15,12 @@ namespace ShadowBringer
 
 		public UnityAction OnPlan;
 		private GameController gameController;
+		private CameraController cameraController;
 
 		private void Awake()
 		{
 			gameController = gameObject.GetComponent<GameController>();
+			cameraController = gameObject.GetComponent<CameraController>();
 
 		}
 
@@ -37,6 +39,12 @@ namespace ShadowBringer
 				gameController.ToggleMode();
 			}
 
+			if (Input.GetAxis("Mouse ScrollWheel") != 0)
+			{
+				cameraController.scale -= Input.GetAxis("Mouse ScrollWheel") * 10f+ Time.deltaTime;
+				if (cameraController.scale < -2f) { cameraController.scale = -2f; }
+				if (cameraController.scale >= 2f){ cameraController.scale = 2f; }
+			}
 		}
 	}
 }
