@@ -1,0 +1,61 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &55264103248848939
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 57577034743501831}
+  - component: {fileID: 5068892918553897342}
+  m_Layer: 0
+  m_Name: VisionCone
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &57577034743501831
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 55264103248848939}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.099, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5068892918553897342
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 55264103248848939}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a28e73a5b3b8004887c81c532016c12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  vision_angle: 30
+  vision_range: 5
+  vision_near_range: 3
+  obstacle_mask:
+    serializedVersion: 2
+    m_Bits: 24
+  show_two_levels: 1
+  safe_material: {fileID: 2100000, guid: aad0c50645c43c749b48dfb9b9b4973b, type: 2}
+  safe_far_material: {fileID: 2100000, guid: 04357f1d897fd4849b694e4e64058283, type: 2}
+  alert_material: {fileID: 2100000, guid: bdd81ecc6984c13479aec351178da7b3, type: 2}
+  alert_far_material: {fileID: 2100000, guid: c01ccc0254abee847bd733df22d4b4ad, type: 2}
+  dangerous_material: {fileID: 2100000, guid: 64d19c91a72e18949810ec96236ad032, type: 2}
+  sort_order: 1
+  precision: 60
+  refresh_rate: 0

@@ -43,10 +43,12 @@ namespace ShadowBringer
 			Watson = GameObject.Find("Watson");
 			EmilyController = Emily.GetComponent<EmilyController>();
 			WatsonController = Watson.GetComponent<WatsonController>();
-			ToggleMode();
 
 			EnterEmilyMode += DebugEmilyMode;
 			EnterWatsonMode += DebugWatsonMode;
+
+			//Enter Watson Mode
+			ToggleMode();
 		}
 
 		// Update is called once per frame

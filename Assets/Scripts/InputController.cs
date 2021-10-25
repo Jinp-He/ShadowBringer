@@ -17,11 +17,13 @@ namespace ShadowBringer
 		private GameController gameController;
 		private CameraController cameraController;
 
+		private bool isChangeable;
+
 		private void Awake()
 		{
 			gameController = gameObject.GetComponent<GameController>();
 			cameraController = gameObject.GetComponent<CameraController>();
-
+			isChangeable = true;
 		}
 
 		// Update is called once per frame
@@ -34,7 +36,7 @@ namespace ShadowBringer
 				gameController.TogglePlan();
 			}
 
-			if (Input.GetKeyDown(ModeKey))
+			if (Input.GetKeyDown(ModeKey) && isChangeable)
 			{
 				gameController.ToggleMode();
 			}
@@ -45,6 +47,11 @@ namespace ShadowBringer
 				if (cameraController.scale < -2f) { cameraController.scale = -2f; }
 				if (cameraController.scale >= 2f){ cameraController.scale = 2f; }
 			}
+		}
+
+		public void DisableChangeMode()
+		{
+			isChangeable = false;
 		}
 	}
 }
